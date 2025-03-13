@@ -1,0 +1,22 @@
+# Илья Карпычев, 27-я когорта — Финальный проект, Работа с базой данных. Инженер по тестированию плюс
+
+# Задание 1 - запрос для вывода списка логинов курьеров с количеством их заказов в статусе «В доставке» (поле inDelivery = true)
+
+SELECT c.login AS "Логин курьера",
+       COUNT(o."courierId") AS "Количество заказов"
+FROM "Couriers" AS c 
+JOIN "Orders" AS o ON c.id=o."courierId" 
+WHERE o."inDelivery"=true 
+GROUP BY c.login;
+
+
+# Задание 2 - запрос для вывода всех трекеров заказа и их статусов
+
+SELECT track AS "Номер заказа", 
+       CASE 
+	    WHEN finished=true THEN "2" 
+	    WHEN cancelled=true THEN "-1" 
+	    WHEN "inDelivery"=true THEN "1" 
+	    ELSE "0" 
+       END AS "Статус заказа" 
+FROM "Orders";
